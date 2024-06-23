@@ -1,16 +1,15 @@
 const express = require("express");
-const multer = require("multer");
-const upload = require("../middleware/multer.js");
+const multer = require("multer")
+const upload = multer();
 const uploadOnCloudinary = require("../utils/cloudinary.js");
 const bcrypt = require("bcrypt");
-const router = express();
+const router = express.Router();
 const User = require("../model/user.js");
 const jwt = require("jsonwebtoken");
 const AuthMiddleware = require("../middleware/auth.js");
-
-
 router.get("/" , async (req,res) => {
-  res.send("hello")
+  res.send("Hello");
+
 })
 
 router.get('/isAuthorized' , AuthMiddleware , async (req,res) => {
@@ -20,87 +19,103 @@ router.get('/isAuthorized' , AuthMiddleware , async (req,res) => {
 });
 
 router.post("/register", upload.single("image"), async (req, res) => {
-  console.log(req.file);
+  
   try {
+
     if (!req.file) {
-      return res.status(201).json({ message: "Please upload an image" });
+      return res.status(203).json({ message: "Please upload an image" });
     }
 
     const { username, email, password } = req.body;
+    console.log(username);
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(202).json({ message: "USer Already Registered" });
+      return res.status(203).json({ message: "User already registered" });
     }
 
+    
+
     const hashedPassword = await bcrypt.hash(password, 10);
-    const imageUrl = await uploadOnCloudinary(req.file.path);
+    const imageUrl = await uploadOnCloudinary(req.file.buffer);
     if (!imageUrl) {
-      return res.status(203).json({ message: "Image upload failed" });
+      return res.status(201).json({ message: "Image upload failed" });
     }
+
     const user = new User({
       username,
       email,
       password: hashedPassword,
-      image: imageUrl,
+      image: imageUrl
     });
 
     await user.save();
-
-    return res.status(200).json({ message: "User Register SuccessFully!!!" });
+    return res.status(200).json({ message: "User registered successfully" });
   } catch (error) {
-    console.log(error);
+    console.error("Error during user registration: ", error);
+    res.status(404).json({ message: "Internal Server Error" });
   }
 });
+
+
 
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-    const findUser = await User.findOne({ email });
-    if (!findUser) {
-      return res
-        .status(201)
-        .json({ message: "User Not Exist . Please Register.." });
+
+    console.log(user);
+
+    if (!user) {
+      return res.status(201).json({ message: "User not found." });
     }
 
-    const isPasswordCorrect = await bcrypt.compare(password, findUser.password);
-
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      return res.status(202).json({ message: "Password is Incorrect" });
+      return res.status(202).json({ message: "password is incorrect." });
     }
 
-    const token = jwt.sign({ _id: findUser._id }, "secret", {
-      expiresIn: "1d",
-    });
-    
-    return res.status(200).json({ message: "Login SuccessFully!!!"  , token});
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "1d" });
+
+    // Send the token in the response body
+    return res.status(200).json({ message: "Login successful!", token });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Server error." });
   }
 });
 
+
 router.get("/user", async (req, res) => {
   try {
-    const token = req.headers.authorization;
-    console.log("ww" , token);
-  
-    const verify = jwt.verify(token, "secret");
-    const user = await User.findOne({ _id: verify._id });
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1]; // Extract token from 'Bearer <token>'
 
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const user = await User.findById(decoded._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    return res.status(200).json(user);
+    res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-router.post("/logout", async (req, res) => {
-  
 
-  return res.status(200).json({ message: "LogOut SuccessFully" });
+router.post("/logout", (req, res) => {
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  });
+    
+  return res.status(200).json({ message: "Logout Successfully" });
 });
 
 router.post("/updateuser/:id",upload.single("image"), async (req, res) => {
@@ -113,7 +128,7 @@ router.post("/updateuser/:id",upload.single("image"), async (req, res) => {
     
     let  imageurl = user.image;
     if(req.file){
-      imageurl = await uploadOnCloudinary(req.file.path);
+      imageurl = await uploadOnCloudinary(req.file.buffer);
     }
     await User.findByIdAndUpdate(req.params.id , {
       $set: {
@@ -130,6 +145,12 @@ router.post("/updateuser/:id",upload.single("image"), async (req, res) => {
     }
    
   })
+
+
+  router.get("/check-cookie", (req, res) => {
+    console.log("Cookies: ", req.cookies);
+    res.json({ cookies: req.cookies });
+  });
 
 
 module.exports = router;
