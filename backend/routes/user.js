@@ -88,14 +88,13 @@ router.post("/login", async (req, res) => {
 
 router.get("/user", async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    const token = authHeader && authHeader.split(' ')[1]; // Extract token from 'Bearer <token>'
+    const token = req.headers.authorization;
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const decoded = jwt.verify(token, process.env.SECRET);
+    const decoded = jwt.verify(token, "secret");
     const user = await User.findById(decoded._id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
