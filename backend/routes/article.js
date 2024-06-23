@@ -20,7 +20,6 @@ router.post('/addArticle'  ,upload.single("image") , async (req,res)=>{
             image:imageurl,
             author:req.body.author,
             summary : req.body.summary,
-            userId : req.user._id
         })
 
         await article.save();
