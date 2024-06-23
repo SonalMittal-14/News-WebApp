@@ -95,7 +95,7 @@ const UpdatePage = () => {
   return (
     <form
       method="post"
-      className="md:col-span-2 w-full min-h-screen py-6 px-6 sm:px-16   flex justify-center items-center"
+      className="md:col-span-2 w-full min-h-screen py-6 px-6 sm:px-16 bg-black  flex justify-center items-center"
       onSubmit={submitupdateForm}
     >
       <div className="bg-slate-700 px-8 text-white rounded-xl py-4">
