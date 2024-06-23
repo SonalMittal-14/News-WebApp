@@ -8,6 +8,11 @@ const User = require("../model/user.js");
 const jwt = require("jsonwebtoken");
 const AuthMiddleware = require("../middleware/auth.js");
 
+
+router.get("/" , (req,res) => {
+  res,send("hello")
+})
+
 router.get('/isAuthorized' , AuthMiddleware , async (req,res) => {
   if(req.user){
     return res.status(200).json({message:"Authorized!"})
