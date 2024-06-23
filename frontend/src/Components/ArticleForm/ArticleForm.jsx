@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+import { locals } from "../../../../backend/app";
 
 const ArticleForm = () => {
   const navigate = useNavigate();
@@ -61,10 +62,12 @@ const ArticleForm = () => {
     formdata.append("image", file);
     try {
       const uri = `${window.API_URL}/addArticle`;
+      const token = localStorage.getItem("token")
       const response = await axios.post(uri, formdata, {
         
         headers: {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
+          Authorization : `${token}`
         },
       });
       if (response.status === 201) {
