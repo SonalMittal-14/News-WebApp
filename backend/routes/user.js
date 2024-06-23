@@ -9,8 +9,8 @@ const jwt = require("jsonwebtoken");
 const AuthMiddleware = require("../middleware/auth.js");
 
 
-router.get("/" , (req,res) => {
-  res,send("hello")
+router.get("/" , async (req,res) => {
+  res.send("hello")
 })
 
 router.get('/isAuthorized' , AuthMiddleware , async (req,res) => {
