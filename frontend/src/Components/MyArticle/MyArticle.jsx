@@ -14,7 +14,7 @@ const MyArticle = ({ hamburger }) => {
                 const token = localStorage.getItem("token")
                 const response = await axios.get(uri, {
                     headers : {
-                      Authorization : token
+                      Authorization : `${token}`
                     }
                 });
 
