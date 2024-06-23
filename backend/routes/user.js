@@ -20,6 +20,7 @@ router.get('/isAuthorized' , AuthMiddleware , async (req,res) => {
 });
 
 router.post("/register", upload.single("image"), async (req, res) => {
+  console.log(req.file);
   try {
     if (!req.file) {
       return res.status(201).json({ message: "Please upload an image" });
