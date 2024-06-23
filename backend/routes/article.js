@@ -7,12 +7,11 @@ const uploadOnCloudinary = require("../utils/cloudinary.js");
 const AuthMiddleware = require("../middleware/auth.js");
 
 
-router.post('/addArticle' , AuthMiddleware ,upload.single("image") , async (req,res)=>{
+router.post('/addArticle'  ,upload.single("image") , async (req,res)=>{
 
     try{
         
-        
-        const imageurl = await uploadOnCloudinary(req.file.path);
+        const imageurl = await uploadOnCloudinary(req.file.buffer);
 
         const article = new Article({
             title:req.body.title,

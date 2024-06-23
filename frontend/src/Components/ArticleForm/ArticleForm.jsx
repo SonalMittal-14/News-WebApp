@@ -61,12 +61,10 @@ const ArticleForm = () => {
     formdata.append("image", file);
     try {
       const uri = `${window.API_URL}/addArticle`;
-      const token = localStorage.getItem("token")
       const response = await axios.post(uri, formdata, {
         
         headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization : token
+          "Content-Type": "multipart/form-data"
         },
       });
       if (response.status === 201) {
