@@ -29,7 +29,7 @@ const Navbar = () => {
         const token = localStorage.getItem("token")
         const response = await axios.get(url, {
           headers : {
-            Authorization : token
+            Authorization : `Bearer ${token}`
           }
         });
         if (response.status === 200) {
