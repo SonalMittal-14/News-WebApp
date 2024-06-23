@@ -63,7 +63,6 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-
     console.log(user);
 
     if (!user) {
@@ -75,11 +74,12 @@ router.post("/login", async (req, res) => {
       return res.status(202).json({ message: "password is incorrect." });
     }
 
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ _id: user._id }, 'secret', { expiresIn: "1d" });
 
     // Send the token in the response body
     return res.status(200).json({ message: "Login successful!", token });
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error." });
   }
