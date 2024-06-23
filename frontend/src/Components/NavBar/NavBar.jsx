@@ -27,10 +27,9 @@ const Navbar = () => {
       try {
         const url = `${window.API_URL}/user`;
         const token = localStorage.getItem("token")
-        console.log("toko" , token);
         const response = await axios.get(url, {
           headers : {
-            'Authorization' : `${token}`
+            Authorization : token
           }
         });
         if (response.status === 200) {
