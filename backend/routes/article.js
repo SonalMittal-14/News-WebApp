@@ -115,6 +115,7 @@ router.put('/updateArticle/:id' , AuthMiddleware , upload.single("image")  , asy
 router.get('/myArticles', AuthMiddleware, async (req, res) => {
     try {
         const articles = await Article.find({ userId: req.user._id });
+        console.log(articles);
         res.status(200).json({articles});
     } catch (err) {
         res.status(400).json({error: err});
@@ -148,7 +149,7 @@ router.post('/likeArticle/:id', AuthMiddleware, async (req, res) => {
 });
 
 
-router.get('/likedArticles', AuthMiddleware, async (req, res) => {
+router.get('/likedArticles',AuthMiddleware , async (req, res) => {
   try {
     const userId = req.user._id;
     const likedArticles = await Article.find({ likes: userId });

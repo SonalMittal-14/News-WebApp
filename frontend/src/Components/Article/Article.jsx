@@ -17,14 +17,14 @@ const Article = ({ article , handleDelete }) => {
 
 
   const navigateArticleDetails = async (id) => {
-           
     const url = `${window.API_URL}/isAuthorized`
     const token = localStorage.getItem("token")
     const isAuth = await axios.get(url , {
         headers : {
           Authorization : token
         }
-    }) 
+    }
+  )
 
 
     if([201,202,401].includes(isAuth.status)){
@@ -37,24 +37,23 @@ const Article = ({ article , handleDelete }) => {
 }
 
   return (
-    <div onClick={() => navigateArticleDetails(article._id)}  className={`border cursor-pointer border-gray-200 w-[450px] rounded-xl bg-gray-200`}>
-      <div className={`relative overflow-hidden w-[450px] h-72 rounded-xl`}>
+    <div onClick={() => navigateArticleDetails(article._id)}  className={`border h-42 flex cursor-pointer border-gray-200 rounded-xl bg-gray-100`}>
+     
         <img
           src={article.image}
-          className={`w-[450px] h-72 absolute `}
+          className={`w-[300px] h-48 `}
           alt=""
         />
-        <div className="flex flex-col text-white  px-4 pt-3 absolute bottom-0 h-20 w-full">
-        
+        <div className="flex flex-col pt-4 pl-6 space-y-4">
+  
           <h1 className="text-3xl font-semibold"> {title}</h1>
-          <div className="flex">
+          <div className="flex space-x-5">
             <h1>{article.author}</h1>
             <h1>{new Date(article.createdAt).toLocaleString()}</h1>
           </div>
         </div>
       </div>
      
-    </div>
   );
 };
 

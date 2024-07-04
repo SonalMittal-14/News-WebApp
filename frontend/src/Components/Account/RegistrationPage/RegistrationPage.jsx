@@ -6,7 +6,7 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
 
   const goLogin = () => {
-    navigate("/account");
+    navigate("/login");
   };
 
   const [registerPayload, setRegisterPayload] = useState({
@@ -65,7 +65,7 @@ const RegistrationPage = () => {
           password: "",
         });
         setFile(null);
-        navigate("/account");
+        navigate("/login");
       }
     } catch (error) {
       console.log("THERE IS AN ERROR WHILE REGISTERING THE USER", error);
@@ -96,7 +96,7 @@ const RegistrationPage = () => {
           <input
             type="file"
             onChange={loadFile}
-            className="block  w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100"
+            className="block  w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-black hover:file:bg-violet"
           />
         </label>
       </div>
@@ -109,7 +109,7 @@ const RegistrationPage = () => {
               name="username"
               type="text"
               required
-              className="outline-red-200 bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md "
+              className="outline-black bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md "
               placeholder="Enter name"
               value={registerPayload.name}
               onChange={updatePayload}
@@ -123,7 +123,7 @@ const RegistrationPage = () => {
               name="email"
               type="email"
               required
-              className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-red-200"
+              className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-black"
               placeholder="Enter email"
               value={registerPayload.email}
               onChange={updatePayload}
@@ -137,7 +137,7 @@ const RegistrationPage = () => {
               name="password"
               type="password"
               required
-              className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-red-200"
+              className="bg-white border border-gray-300 w-full text-sm px-4 py-2.5 rounded-md outline-black"
               placeholder="Enter password"
               value={registerPayload.password}
               onChange={updatePayload}
@@ -147,7 +147,7 @@ const RegistrationPage = () => {
       </div>
       <div className="!mt-10">
         <button
-          className="w-full py-3 px-4 text-sm font-semibold rounded bg-red-300 hover:bg-red-200 text-white focus:outline-none cursor-pointer"
+          className="w-full py-3 px-4 text-sm font-semibold rounded bg-black text-white hover:bg-white hover:text-black hover:border-black hover:border focus:outline-none cursor-pointer"
         >
           Create an account
         </button>
@@ -156,7 +156,7 @@ const RegistrationPage = () => {
         Already have an account?
         <span
           onClick={goLogin}
-          className="text-red-300 font-semibold hover:underline ml-1 cursor-pointer"
+          className="text-black font-semibold hover:underline ml-1 cursor-pointer"
         >
           Login here
         </span>

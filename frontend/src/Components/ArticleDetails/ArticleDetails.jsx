@@ -111,23 +111,23 @@ const ArticleDetails = ({handleopenAccount }) => {
    
   return (
     <>
-    <div className='flex '>
+    <div className='flex justify-center'>
             <div className="w-[70%] px-24 mt-12 " >
                 <h1 className='font-semibold text-3xl font-serif  '>{articleDetails.title}</h1>
-                <p className='py-3 text-lg tracking-wide'> <span className='text-red-500'>Published On</span> : {new Date(articleDetails.createdAt).toLocaleString()} By {articleDetails.author}</p>
+                <p className='py-3 text-lg tracking-wide'> <span className='text-red-500 mb-12'>Published On</span> : {new Date(articleDetails.createdAt).toLocaleString()} By {articleDetails.author}</p>
 
+            <img alt='' src={articleDetails.image} className='w-full mt-6'/>
                 <p className='pt-8 text-xl tracking-wide leading-8'>{articleDetails.summary}</p>
                
             </div>
+            
             <div className='pt-14 text-3xl pl-20'>
             {isLiked ? 
               <FaHeart onClick={handleLikeToggle} className='text-red-500 cursor-pointer' /> : 
               <FaRegHeart onClick={handleLikeToggle} className='cursor-pointer' />
             }
           </div>
-            <div className='w-[35%] pt-24 px-6'>
-                <img alt='' src={articleDetails.image} className='w-full '/>
-            </div>
+           
     </div>
     
     <DefaultComponent articleId={articleDetails._id}/>

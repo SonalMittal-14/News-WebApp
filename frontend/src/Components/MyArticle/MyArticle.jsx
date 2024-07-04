@@ -4,6 +4,29 @@ import Article2 from '../Article2/Article2';
 const MyArticle = ({ hamburger }) => {
     const [myArticles, setMyArticles] = useState([]);
     
+    console.log("myarticles" , myArticles);
+    useEffect(() => {
+      
+      const fetchMyArticles = async () => {
+        const token = localStorage.getItem("token");
+        const url = `${window.API_URL}/myArticles`
+        const response = await axios.get(url , {
+          headers : {
+            Authorization : token
+          }
+        })
+        console.log(response);
+            if(response.status === 200){
+              setMyArticles(response.data.articles)
+            }else{
+              console.log("Technical Error!!!");
+            }
+          }
+        
+      
+
+      fetchMyArticles();
+    } , [])
    
 
     console.log(myArticles);
@@ -14,7 +37,7 @@ const MyArticle = ({ hamburger }) => {
                 const token = localStorage.getItem("token")
                 const response = await axios.get(uri, {
                     headers : {
-                      Authorization : `${token}`
+                      Authorization : token
                     }
                 });
 

@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
-import { locals } from "../../../../backend/app";
 
 const ArticleForm = () => {
   const navigate = useNavigate();
@@ -93,7 +92,7 @@ const ArticleForm = () => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      backgroundColor: "rgb(31 41 55)",
+      backgroundColor: "black",
       color: "white",
       height: "100%",
       border: "none",
@@ -104,14 +103,14 @@ const ArticleForm = () => {
     option: (provided, state) => ({
       ...provided,
       color: "white",
-      backgroundColor: "rgb(31 41 55)",
+      backgroundColor: "black",
       cursor: "pointer",
     }),
   };
   return (
-    <form onSubmit={submitNewsForm} class="body-font min-h-screen relative bg-gray-900 text-gray-400">
+    <form onSubmit={submitNewsForm} class="body-font min-h-screen relative bg-white text-black">
       <div class="container w-full px-5 pt-4">
-        <h1 class="title-font text-center mb-4 text-2xl font-medium text-white sm:text-3xl">
+        <h1 class="title-font text-center mb-4 text-6xl font-medium font-serif text-black">
           Add Article
         </h1>
 
@@ -124,7 +123,7 @@ const ArticleForm = () => {
               >
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                   <svg
-                    class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                    class="w-8 h-8 mb-4 text-black dark:text-black"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -138,11 +137,11 @@ const ArticleForm = () => {
                       d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                     />
                   </svg>
-                  <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p class="mb-2 text-sm text-black">
                     <span class="font-semibold">Click to upload</span> or drag
                     and drop
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                  <p class="text-xs text-black">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
@@ -171,14 +170,14 @@ const ArticleForm = () => {
                     type="text"
                     id="title"
                     name="title"
-                    class="peer w-full rounded border border-gray-700 bg-gray-800 bg-opacity-40 py-1 px-3 text-base leading-8 text-gray-100 placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900"
+                    class="peer w-full rounded border border-black  bg-opacity-40 py-1 px-3 text-base leading-8 text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-black focus:bg-white focus:ring-1 focus:ring-black"
                     placeholder="Title"
                     value={newsPayload.title}
                     onChange={handleNewsPayload}
                   />
                   <label
                     for="title"
-                    class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500"
+                    class="absolute left-3 -top-6  text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-black"
                   >
                     Title
                   </label>
@@ -191,14 +190,14 @@ const ArticleForm = () => {
                     type="text"
                     id="author"
                     name="author"
-                    class="peer w-full rounded border border-gray-700 bg-gray-800 bg-opacity-40 py-1 px-3 text-base leading-8 text-gray-100 placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900"
+                    class="peer w-full rounded border border-gray-700  bg-opacity-40 py-1 px-3 text-base leading-8 text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-black text-black focus:bg-white focus:ring-1 focus:ring-black"
                     placeholder="Author"
                     value={newsPayload.author}
                     onChange={handleNewsPayload}
                   />
                   <label
                     for="author"
-                    class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500"
+                    class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 text-black transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2  peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-black"
                   >
                     Author
                   </label>
@@ -225,11 +224,11 @@ const ArticleForm = () => {
                   name="summary"
                   id="summary"
                   required
-                  class="peer h-32 w-full resize-none rounded border border-gray-700 bg-gray-800 bg-opacity-40 py-1 px-3 text-base leading-6 text-gray-100 placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-indigo-500 focus:bg-gray-900 focus:ring-2 focus:ring-indigo-900"
+                  class="peer h-32 w-full resize-none rounded border border-gray-700 bg-white bg-opacity-40 py-1 px-3 text-base leading-6 text-black placeholder-transparent outline-none transition-colors duration-200 ease-in-out focus:border-black focus:bg-white  focus:ring-1 focus:ring-black"
                 ></textarea>
                 <label
                   for="summary"
-                  class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500"
+                  class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2  peer-placeholder-shown:text-base peer-placeholder-shown:text-black peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-black"
                 >
                   Summary
                 </label>
@@ -237,7 +236,7 @@ const ArticleForm = () => {
             </div>
 
             <div class="w-full mb-10 p-2">
-              <button class="mx-auto flex rounded border-0 bg-indigo-500 py-2 px-8 text-lg text-white hover:bg-indigo-600 focus:outline-none">
+              <button class="mx-auto flex rounded border-0 bg-black hover:bg-white hover:text-black hover:border hover:border-black hover:ring-1 py-2 px-8 text-lg text-white  focus:outline-none">
                 Add Article
               </button>
             </div>

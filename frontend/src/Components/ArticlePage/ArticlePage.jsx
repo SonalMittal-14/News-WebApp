@@ -62,16 +62,18 @@ const ArticlePage = () => {
   return (
     <>
     <div className='flex items-center py-2 justify-between px-12'>
-        <h1 className='text-3xl font-normal font-serif tracking-wide '>Category : {category}</h1>
-        <select onChange={handleSorting} name="" id="" className=' focus:outline-0 w-80 bg-slate-900 text-white rounded-lg px-2 py-2 my-4 cursor-pointer'>
-            <option className='bg-slate-900 text-white rounded-lg px-2 py-2 cursor-pointer' value="default">Default</option>
-            <option className='bg-slate-900 text-white rounded-lg px-2 py-2 cursor-pointer' value="title">Sort By : Title</option>
-            <option className='bg-slate-900 text-white rounded-lg px-2 py-2 cursor-pointer' value="author">Sort By : Author</option>
-            <option className='bg-slate-900 text-white rounded-lg px-2 py-2 cursor-pointer' value="date">Sort By : Date</option>
+        <h1 className='text-3xl font-normal font-serif tracking-wide '> {category}</h1>
+        <select onChange={handleSorting} name="" id="" className=' focus:outline-0 w-80 bg-black text-white rounded-lg px-2 py-2 my-4 cursor-pointer'>
+            <option className='bg-black text-white rounded-lg px-2 py-2 cursor-pointer' value="title">Sort By : Title</option>
+            <option className='bg-black text-white rounded-lg px-2 py-2 cursor-pointer' value="author">Sort By : Author</option>
+            <option className='bg-black text-white rounded-lg px-2 py-2 cursor-pointer' value="date">Sort By : Date</option>
+            <option className='bg-black text-white rounded-lg px-2 py-2 cursor-pointer' value="default">Default</option>
         
             </select>
     </div>
-    <div className='grid grid-cols-3 pl-10 gap-y-10 my-10'>
+    
+    <hr className="bg-black h-0.5 border border-black mx-12" /> 
+    <div className='grid grid-cols-2 gap-10 mx-10 my-10' >
         
         {filterArticles.length > 0 ? 
         filterArticles.map((article , index) => (
